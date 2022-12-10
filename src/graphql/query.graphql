@@ -1,0 +1,32 @@
+query getUsers {
+  users {
+    id
+    name
+  }
+}
+
+query getUsersAndTeams {
+  users {
+    id
+    name
+    teamName
+  }
+  teams {
+    id
+    name
+  }
+}
+
+query getUser($name: String!) {
+  user(name: $name) {
+    id
+    name
+    teamName
+  }
+}
+
+mutation addUser($name: String!) {
+  addUser(name: $name) {
+    id
+  }
+}
