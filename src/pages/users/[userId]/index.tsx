@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import FocusedUser from '@/components/FocusedUser';
 import useUser from '@/hooks/useUser';
-import {Divider} from '@chakra-ui/react';
+import {Divider, Spacer} from '@chakra-ui/react';
 import {css} from '@emotion/react';
 import {Box, Typography} from '@mui/joy';
 import Link from 'next/link';
@@ -36,7 +35,13 @@ const UserPage = () => {
 
     return (
       <>
-        <FocusedUser specifiedName={userById.name} />
+        <Box>
+          <Box component={'span'}>id: {userById.id}</Box>
+          <Spacer height={`0.5rem`} />
+          <Box component={'span'}>name: {userById.name}</Box>
+          <Spacer height={`0.5rem`} />
+          <Box component={'span'}>team {userById.teamName}</Box>
+        </Box>
         <Divider />
         <Box
           css={css`

@@ -10,11 +10,14 @@ const parsedQuery = print(GetUserByIdDocument);
 
 const useUser = ({userId}: {userId: string}) => {
   const {fetcher} = useFetch();
+  // https://swr.vercel.app/ja/docs/conditional-fetching
   const {data, error} = useSWR(
-    {
-      query: parsedQuery,
-      variables: {id: userId},
-    },
+    userId
+      ? {
+          query: parsedQuery,
+          variables: {id: userId},
+        }
+      : null,
     fetcher
   ) as SWRResponse<GetUserByIdQuery, Error | undefined | null>;
 
