@@ -1,0 +1,1 @@
+# react-nextjs-graphql-yoga-codegen-app
