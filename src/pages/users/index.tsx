@@ -50,8 +50,8 @@ const UsersPage = () => {
             justify-content: flex-end;
           `}
         >
-          <Link href={'/users'}>
-            <a className="hover:underline">Back to users</a>
+          <Link href={'/'}>
+            <a className="hover:underline">Back to home</a>
           </Link>
         </Box>
       </>
