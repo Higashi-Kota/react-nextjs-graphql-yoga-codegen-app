@@ -1,25 +1,23 @@
 import {useFetch} from '@/hooks/useFetch';
 import {print} from 'graphql';
 import {useState} from 'react';
-import useSWR, {KeyedMutator, SWRResponse} from 'swr';
+import useSWR, {SWRResponse} from 'swr';
 import {
   AddUserDocument,
   AddUserMutation,
   AddUserMutationVariables,
-  GetUsersAndTeamsQuery,
 } from '@/graphql/dist/generated-client';
 import {useForm} from 'react-hook-form';
 import {Button, TextField} from '@mui/joy';
 import {Spacer} from '@chakra-ui/react';
+import useTeam from '@/hooks/useTeam';
 
 const parsedQuery = print(AddUserDocument);
 
-const AddUser = ({
-  mutateUsersAndTeams,
-}: {
-  mutateUsersAndTeams: KeyedMutator<GetUsersAndTeamsQuery>;
-}) => {
+const AddUser = () => {
   const {fetcher} = useFetch();
+  const {mutate} = useTeam();
+
   const {
     register,
     handleSubmit,
@@ -46,13 +44,15 @@ const AddUser = ({
       onSuccess(data, key, config) {
         console.log(`onSuccess`, data);
         reset();
-        mutateUsersAndTeams();
+        mutate();
       },
       onError(err, key, config) {
         console.log(`onError`, err);
       },
     }
   ) as SWRResponse<AddUserMutation, Error | undefined | null>;
+
+  // console.log(errors);
 
   if (error) return <p>Error</p>;
   if (!data) return <p>Loading...</p>;
@@ -64,8 +64,9 @@ const AddUser = ({
         <TextField {...register('name', {required: true})} />
         <Spacer height={`0.5rem`} />
         <Button variant="solid" type="submit">
-          Add User
+          Add
         </Button>
+        <Spacer height={`0.5rem`} />
       </form>
     </div>
   );
