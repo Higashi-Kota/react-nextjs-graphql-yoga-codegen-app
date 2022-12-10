@@ -8,7 +8,7 @@ import {
   AddUserMutationVariables,
 } from '@/graphql/dist/generated-client';
 import {useForm} from 'react-hook-form';
-import {Button, TextField} from '@mui/joy';
+import {Box, Button, TextField, Typography} from '@mui/joy';
 import {Spacer} from '@chakra-ui/react';
 import useTeam from '@/hooks/useTeam';
 
@@ -34,11 +34,14 @@ const AddUser = () => {
     name: '',
   });
 
+  // https://swr.vercel.app/ja/docs/conditional-fetching
   const {data, error} = useSWR(
-    {
-      query: parsedQuery,
-      variables,
-    },
+    variables.name
+      ? {
+          query: parsedQuery,
+          variables,
+        }
+      : null,
     fetcher,
     {
       onSuccess(data, key, config) {
@@ -52,14 +55,11 @@ const AddUser = () => {
     }
   ) as SWRResponse<AddUserMutation, Error | undefined | null>;
 
-  // console.log(errors);
-
-  if (error) return <p>Error</p>;
-  if (!data) return <p>Loading...</p>;
-
   return (
-    <div>
-      <h1 className="text-3xl">Add User</h1>
+    <Box>
+      <Typography component={'h2'} className={'!text-2xl'}>
+        Add User
+      </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField {...register('name', {required: true})} />
         <Spacer height={`0.5rem`} />
@@ -68,7 +68,7 @@ const AddUser = () => {
         </Button>
         <Spacer height={`0.5rem`} />
       </form>
-    </div>
+    </Box>
   );
 };
 
