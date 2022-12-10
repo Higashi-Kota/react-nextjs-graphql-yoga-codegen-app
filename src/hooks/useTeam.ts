@@ -8,7 +8,6 @@ import {
 } from '@/graphql/dist/generated-client';
 
 const parsedQuery = print(GetUsersAndTeamsDocument);
-console.log(parsedQuery);
 
 const rawQuery = gql`
   query getUsersAndTeams {

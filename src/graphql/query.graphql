@@ -17,6 +17,14 @@ query getUsersAndTeams {
   }
 }
 
+query getUserById($id: String!) {
+  userById(id: $id) {
+    id
+    name
+    teamName
+  }
+}
+
 query getUser($name: String!) {
   user(name: $name) {
     id

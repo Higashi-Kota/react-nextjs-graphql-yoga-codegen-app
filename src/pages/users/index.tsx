@@ -1,26 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react';
 import {print} from 'graphql';
-import useSWR, {SWRResponse} from 'swr';
 import {GetUsersQuery, GetUsersDocument} from '@/graphql/dist/generated-client';
-import {useFetch} from '@/hooks/useFetch';
 import {Box, Divider, Typography} from '@mui/joy';
 import Link from 'next/link';
 import {Spacer} from '@chakra-ui/react';
 import {FallbackError} from '@/components/fallback/FallbackError';
 import {FallbackLoading} from '@/components/fallback/FallbackLoading';
 import {FallbackDataEmpty} from '@/components/fallback/FallbackDataEmpty';
+import useUsers from '@/hooks/useUsers';
 
 const parsedQuery = print(GetUsersDocument);
 
 const UsersPage = () => {
-  const {fetcher} = useFetch();
-  const {data, error} = useSWR(
-    {
-      query: parsedQuery,
-    },
-    fetcher
-  ) as SWRResponse<GetUsersQuery, Error | undefined | null>;
+  const {data, error} = useUsers();
 
   const renderContent = (
     data: GetUsersQuery | undefined,
@@ -57,8 +50,8 @@ const UsersPage = () => {
             justify-content: flex-end;
           `}
         >
-          <Link href={'/'}>
-            <a className="hover:underline">Back to home</a>
+          <Link href={'/users'}>
+            <a className="hover:underline">Back to users</a>
           </Link>
         </Box>
       </>

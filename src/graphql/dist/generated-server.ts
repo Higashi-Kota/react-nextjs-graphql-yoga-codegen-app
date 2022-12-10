@@ -33,11 +33,16 @@ export type Query = {
   __typename?: 'Query';
   teams: Array<Team>;
   user?: Maybe<User>;
+  userById?: Maybe<User>;
   users: Array<User>;
 };
 
 export type QueryUserArgs = {
   name: Scalars['String'];
+};
+
+export type QueryUserByIdArgs = {
+  id: Scalars['String'];
 };
 
 export type Team = {
@@ -205,6 +210,12 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     RequireFields<QueryUserArgs, 'name'>
+  >;
+  userById?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryUserByIdArgs, 'id'>
   >;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
 }>;

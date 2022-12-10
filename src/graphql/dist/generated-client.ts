@@ -30,11 +30,16 @@ export type Query = {
   __typename?: 'Query';
   teams: Array<Team>;
   user?: Maybe<User>;
+  userById?: Maybe<User>;
   users: Array<User>;
 };
 
 export type QueryUserArgs = {
   name: Scalars['String'];
+};
+
+export type QueryUserByIdArgs = {
+  id: Scalars['String'];
 };
 
 export type Team = {
@@ -68,6 +73,20 @@ export type GetUsersAndTeamsQuery = {
     teamName: string;
   }>;
   teams: Array<{__typename?: 'Team'; id: string; name: string}>;
+};
+
+export type GetUserByIdQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+export type GetUserByIdQuery = {
+  __typename?: 'Query';
+  userById?: {
+    __typename?: 'User';
+    id: string;
+    name: string;
+    teamName: string;
+  } | null;
 };
 
 export type GetUserQueryVariables = Exact<{
@@ -160,6 +179,50 @@ export const GetUsersAndTeamsDocument = {
   GetUsersAndTeamsQuery,
   GetUsersAndTeamsQueryVariables
 >;
+export const GetUserByIdDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: {kind: 'Name', value: 'getUserById'},
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {kind: 'Variable', name: {kind: 'Name', value: 'id'}},
+          type: {
+            kind: 'NonNullType',
+            type: {kind: 'NamedType', name: {kind: 'Name', value: 'String'}},
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: {kind: 'Name', value: 'userById'},
+            arguments: [
+              {
+                kind: 'Argument',
+                name: {kind: 'Name', value: 'id'},
+                value: {kind: 'Variable', name: {kind: 'Name', value: 'id'}},
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {kind: 'Field', name: {kind: 'Name', value: 'id'}},
+                {kind: 'Field', name: {kind: 'Name', value: 'name'}},
+                {kind: 'Field', name: {kind: 'Name', value: 'teamName'}},
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetUserByIdQuery, GetUserByIdQueryVariables>;
 export const GetUserDocument = {
   kind: 'Document',
   definitions: [

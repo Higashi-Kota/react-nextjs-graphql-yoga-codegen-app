@@ -39,9 +39,17 @@ const resolvers: Resolvers = {
   Query: {
     users: () => users,
     teams: () => teams,
-    user: (_, {name: specifiedName}) => {
-      const user = users.find(({name}) => name === specifiedName);
-      return user || null;
+    user: (_, {name}: Partial<User>) => {
+      const matchedUser = users.find((user) => {
+        return user.name === name;
+      });
+      return matchedUser || null;
+    },
+    userById: (_, {id}: {id: string}) => {
+      const matchedUser = users.find((user) => {
+        return user.id === id;
+      });
+      return matchedUser || null;
     },
   },
   Mutation: {
