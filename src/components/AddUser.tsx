@@ -26,7 +26,6 @@ const AddUser = () => {
   } = useForm();
 
   const onSubmit = (data: any) => {
-    console.log(data);
     setVariables(data);
   };
 

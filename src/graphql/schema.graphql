@@ -1,12 +1,18 @@
+enum TeamName {
+  RED
+  BEBOP
+  WHITE
+}
+
 type User {
   id: ID!
   name: String!
-  teamName: String!
+  teamName: TeamName!
 }
 
 type Team {
   id: ID!
-  name: String!
+  name: TeamName!
 }
 
 type Mutation {

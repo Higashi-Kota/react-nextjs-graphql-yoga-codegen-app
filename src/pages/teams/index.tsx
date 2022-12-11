@@ -44,7 +44,7 @@ const TeamsPage = () => {
           {`${
             groupedByTeam.find((item) => {
               return item.teamName === team.name;
-            })?.n
+            })?.n || 0
           } members`}
         </Box>
       );

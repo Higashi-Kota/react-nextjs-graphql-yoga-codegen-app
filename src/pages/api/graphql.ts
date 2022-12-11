@@ -1,24 +1,24 @@
 import {createYoga, createSchema} from 'graphql-yoga';
 import {readFileSync} from 'fs';
 import {join} from 'path';
-import {Resolvers} from '@/graphql/dist/generated-server';
+import {Resolvers, TeamName} from '@/graphql/dist/generated-server';
 
 const path = join(process.cwd(), 'src', 'graphql', 'schema.graphql');
 const typeDefs = readFileSync(path).toString('utf-8');
 
-type Team = 'Red' | 'White';
-
-const teams: {id: string; name: Team}[] = [
-  {id: '1', name: 'Red'},
-  {id: '2', name: 'White'},
+const teams: {id: string; name: TeamName}[] = [
+  {id: '1', name: TeamName.Red},
+  {id: '2', name: TeamName.White},
+  {id: '3', name: TeamName.Bebop},
 ];
 
-type User = {id: string; name: string; teamName: Team};
+type User = {id: string; name: string; teamName: TeamName};
 
 const users: User[] = [
-  {id: '1', name: 'Alice', teamName: 'Red'},
-  {id: '2', name: 'Bob', teamName: 'Red'},
-  {id: '3', name: 'Carol', teamName: 'White'},
+  {id: '1', name: 'Spike', teamName: TeamName.Bebop},
+  {id: '2', name: 'Fei', teamName: TeamName.Bebop},
+  {id: '3', name: 'Dacchi', teamName: TeamName.Bebop},
+  {id: '4', name: 'Ed', teamName: TeamName.Bebop},
 ];
 
 const addUser = (newUserName: string): User | null => {
@@ -29,7 +29,7 @@ const addUser = (newUserName: string): User | null => {
   const newUser: User = {
     id: String(id),
     name: newUserName,
-    teamName: 'White',
+    teamName: TeamName.White,
   };
   users.push(newUser);
   return newUser;

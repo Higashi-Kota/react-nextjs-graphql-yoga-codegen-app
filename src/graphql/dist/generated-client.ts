@@ -45,14 +45,20 @@ export type QueryUserByIdArgs = {
 export type Team = {
   __typename?: 'Team';
   id: Scalars['ID'];
-  name: Scalars['String'];
+  name: TeamName;
 };
+
+export enum TeamName {
+  Bebop = 'BEBOP',
+  Red = 'RED',
+  White = 'WHITE',
+}
 
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
   name: Scalars['String'];
-  teamName: Scalars['String'];
+  teamName: TeamName;
 };
 
 export type GetUsersQueryVariables = Exact<{[key: string]: never}>;
@@ -70,9 +76,9 @@ export type GetUsersAndTeamsQuery = {
     __typename?: 'User';
     id: string;
     name: string;
-    teamName: string;
+    teamName: TeamName;
   }>;
-  teams: Array<{__typename?: 'Team'; id: string; name: string}>;
+  teams: Array<{__typename?: 'Team'; id: string; name: TeamName}>;
 };
 
 export type GetUserByIdQueryVariables = Exact<{
@@ -85,7 +91,7 @@ export type GetUserByIdQuery = {
     __typename?: 'User';
     id: string;
     name: string;
-    teamName: string;
+    teamName: TeamName;
   } | null;
 };
 
@@ -99,7 +105,7 @@ export type GetUserQuery = {
     __typename?: 'User';
     id: string;
     name: string;
-    teamName: string;
+    teamName: TeamName;
   } | null;
 };
 

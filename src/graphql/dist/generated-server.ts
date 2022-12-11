@@ -48,14 +48,20 @@ export type QueryUserByIdArgs = {
 export type Team = {
   __typename?: 'Team';
   id: Scalars['ID'];
-  name: Scalars['String'];
+  name: TeamName;
 };
+
+export enum TeamName {
+  Bebop = 'BEBOP',
+  Red = 'RED',
+  White = 'WHITE',
+}
 
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
   name: Scalars['String'];
-  teamName: Scalars['String'];
+  teamName: TeamName;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -174,6 +180,7 @@ export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Team: ResolverTypeWrapper<Team>;
+  TeamName: TeamName;
   User: ResolverTypeWrapper<User>;
 }>;
 
@@ -225,7 +232,7 @@ export type TeamResolvers<
   ParentType extends ResolversParentTypes['Team'] = ResolversParentTypes['Team']
 > = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['TeamName'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -235,7 +242,7 @@ export type UserResolvers<
 > = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  teamName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  teamName?: Resolver<ResolversTypes['TeamName'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
