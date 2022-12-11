@@ -2,6 +2,7 @@ import {createYoga, createSchema} from 'graphql-yoga';
 import {readFileSync} from 'fs';
 import {join} from 'path';
 import {Resolvers, TeamName} from '@/graphql/dist/generated-server';
+import {default as chance} from 'chance';
 
 const path = join(process.cwd(), 'src', 'graphql', 'schema.graphql');
 const typeDefs = readFileSync(path).toString('utf-8');
@@ -29,7 +30,9 @@ const addUser = (newUserName: string): User | null => {
   const newUser: User = {
     id: String(id),
     name: newUserName,
-    teamName: TeamName.White,
+    teamName: chance().integer({min: 0, max: 1})
+      ? TeamName.White
+      : TeamName.Red,
   };
   users.push(newUser);
   return newUser;
