@@ -7,6 +7,10 @@ import {customTheme} from '@/config/theme';
 import '@/styles/index.css';
 import '@/styles/index.scss';
 
+if (process.env.NODE_ENV === 'development') {
+  require('@/mocks');
+}
+
 const App = ({Component, pageProps}: AppProps) => {
   return (
     <RecoilRoot>

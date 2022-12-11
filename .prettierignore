@@ -4,10 +4,11 @@ node_modules
 .eslintignore
 .stylelintignore
 *ico
+*svg
 .env*
 .next
 out
 yarn.lock
-public
+public/assets
 prisma
 *version*
