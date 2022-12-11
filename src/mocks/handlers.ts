@@ -13,6 +13,8 @@ import {
   GetUsersAndTeamsQuery,
 } from '@/graphql/dist/generated-client';
 
+import {default as chance} from 'chance';
+
 const teams: Team[] = [
   {id: '1', name: TeamName.Red},
   {id: '2', name: TeamName.White},
@@ -28,6 +30,7 @@ const users: User[] = [
 
 export const handlers = [
   graphql.query('getUsers', (req, res, ctx) => {
+    // return res(ctx.status(500, 'Something went wrong...'));
     const response = res(
       ctx.data({
         users,
@@ -89,7 +92,9 @@ export const handlers = [
     const newUser: User = {
       id: String(id),
       name: newUserName,
-      teamName: TeamName.White,
+      teamName: chance().integer({min: 0, max: 1})
+        ? TeamName.White
+        : TeamName.Red,
     };
     users.push(newUser);
     const response = res(
